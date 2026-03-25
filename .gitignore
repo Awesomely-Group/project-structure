@@ -19,7 +19,9 @@ npm-debug.log*
 *.tsbuildinfo
 .turbo/
 
-# Claude Flow v3 runtime
+# Claude
+.claude/plans/
+.claude/memory/
 .claude-flow/sessions/
 .claude-flow/logs/
 .swarm/
