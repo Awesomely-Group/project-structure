@@ -74,35 +74,53 @@ Format: pnpm format
 ---
 
 
+## Tooling — Claude Code Marketplace
+
+Skills, agents and commands are no longer vendored in `.claude/`. They are provided
+by the private **`awesomely-internal`** marketplace
+(`https://github.com/Awesomely-Group/claude-marketplace`). Install once per machine:
+
+```text
+/plugin marketplace add Awesomely-Group/claude-marketplace
+/plugin install core-dev@awesomely-internal          # required
+/plugin install orchestration@awesomely-internal     # optional (Claude Flow v3)
+```
+
+Plugin skills are namespaced `core-dev:<skill>` / `orchestration:<skill>`; agents
+are referenced by their name. The sections below list which plugin provides what.
+
 ## Web Frontend
-### Skills: senior-frontend (React, Next.js, TypeScript, Tailwind)
-### Agents: web-frontend-dev
+### Skills: core-dev:senior-frontend (React, Next.js, TypeScript, Tailwind)
+### Agents: web-frontend-dev (core-dev)
 ### Principles: Functional components only, Server components by default, Error boundaries, Tailwind CSS
 
 ## Backend Development
-### Skills: senior-backend (Node.js, Express, PostgreSQL, Prisma)
-### Agents: backend-api-dev, system-architect
+### Skills: core-dev:senior-backend (Node.js, Express, PostgreSQL, Prisma)
+### Agents: backend-api-dev, system-architect (core-dev)
 ### Principles: DDD architecture, Result pattern, Validate DTOs at HTTP layer, Domain events
 
 ## UI/UX Design
-### Skills: ui-design, figma-integration
-### Agents: ui-design-dev
+### Skills: core-dev:ui-design, core-dev:figma-integration
+### Agents: ui-design-dev (core-dev)
 ### Principles: WCAG 2.1 AA, contrast>=4.5:1, keyboard accessible, design tokens, dark mode
 
 ## Security
-### Skills: security (OWASP Top 10, auth, secrets, dependency scanning)
-### Agents: security-auditor
+### Skills: core-dev:security (OWASP Top 10, auth, secrets, dependency scanning)
+### Agents: security-auditor (core-dev)
 ### Principles: Validate inputs, no hardcoded secrets, scan dependencies, HTTPS everywhere
 
 ## DevOps & CI/CD
-### Skills: devops (GitHub Actions, Docker, deployment, monitoring)
-### Agents: cicd-engineer
+### Skills: core-dev:devops (GitHub Actions, Docker, deployment, monitoring)
+### Agents: cicd-engineer (core-dev)
 ### Principles: Cache dependencies, multi-stage Docker builds, secret management, health checks
 
 ## Claude Flow v3 — Multi-Agent Orchestration
 
 ### Overview
-This project uses **Claude Flow v3 (Ruflo)** for multi-agent orchestration. Claude Code performs ALL actual work (file ops, code generation, git). MCP tools ONLY handle coordination (swarm, memory, routing, messaging).
+Provided by the optional **`orchestration`** plugin (not local config — the previous
+`.claude/helpers/`, hooks and `.mcp.json` were removed in favour of the plugin). Claude
+Code performs ALL actual work (file ops, code generation, git). MCP tools ONLY handle
+coordination (swarm, memory, routing, messaging).
 
 ### Quick Reference
 ```bash
@@ -136,8 +154,8 @@ npx ruflo status
 - **Hooks**: Auto-routing via PreToolUse, PostToolUse, SessionStart, SessionEnd hooks
 - **SONA**: Self-Optimizing Neural Architecture learns from every task execution
 
-### Skills: swarm-orchestration
-### Agents: swarm-coordinator, task-router
+### Skills: orchestration:swarm-orchestration
+### Agents: swarm-coordinator, task-router (orchestration)
 ### Principles: Multi-agent coordination, hierarchical mesh topology, task decomposition, shared memory, consensus algorithms
 
 
@@ -151,4 +169,4 @@ npx ruflo status
 
 ---
 
-**Last updated:** 2026-03-25
+**Last updated:** 2026-05-19
